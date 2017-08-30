@@ -7,7 +7,7 @@
     "email": "jan@aagaard.net"
   },
   "private": false,
-  "dependencies": {
+  "devDependencies": {
     "@types/fbemitter": "2.0.32"
   }
 }
