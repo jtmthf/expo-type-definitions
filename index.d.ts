@@ -1,4 +1,4 @@
-declare module 'Expo' {
+declare module 'expo' {
     import { EventSubscription } from 'fbemitter';
     import { Component } from 'react';
     import { ViewStyle, ViewProperties, ColorPropType } from 'react-native';
