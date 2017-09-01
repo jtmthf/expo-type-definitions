@@ -9,8 +9,8 @@
   "types": "./index.d.ts",
   "private": false,
   "devDependencies": {
-    "@types/fbemitter": "2.0.32",
-    "@types/react": "16.0.5",
-    "@types/react-native": "0.47.8"
+    "@types/fbemitter": "2.x.x",
+    "@types/react": "16.x.x",
+    "@types/react-native": "0.x.x"
   }
 }

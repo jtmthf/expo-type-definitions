@@ -2,16 +2,16 @@
 # yarn lockfile v1
 
 
-"@types/fbemitter@2.0.32":
+"@types/fbemitter@2.x.x":
   version "2.0.32"
   resolved "https://registry.yarnpkg.com/@types/fbemitter/-/fbemitter-2.0.32.tgz#8ed204da0f54e9c8eaec31b1eec91e25132d082c"
 
-"@types/react-native@0.47.8":
-  version "0.47.8"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.47.8.tgz#9ab9a8fc4e111b510c76f0fb4c2e2bb02fd0fb3d"
+"@types/react-native@0.x.x":
+  version "0.47.9"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.47.9.tgz#7e7f3d8d25c46e8b6e8ad3b11d0222de0722f820"
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@16.0.5":
+"@types/react@*", "@types/react@16.x.x":
   version "16.0.5"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.5.tgz#d713cf67cc211dea20463d2a0b66005c22070c4b"
