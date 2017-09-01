@@ -1,7 +1,7 @@
 {
   "name": "expo-type-definitions",
   "description": "TypeScript type definitions for Expo (www.expo.io).",
-  "version": "20.0.0",
+  "version": "20.1.0",
   "author": {
     "name": "Jan Aagaard",
     "email": "jan@aagaard.net"
