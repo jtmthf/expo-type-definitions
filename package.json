@@ -12,5 +12,10 @@
     "@types/fbemitter": "2.x.x",
     "@types/react": "16.x.x",
     "@types/react-native": "0.x.x"
+  },
+  "peerDependencies": {
+    "@types/fbemitter": "2.x.x",
+    "@types/react": "16.x.x",
+    "@types/react-native": "0.x.x"
   }
 }
