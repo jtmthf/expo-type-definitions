@@ -3,9 +3,6 @@ declare module 'expo' {
   import { Component } from 'react';
   import { ViewStyle, ViewProperties, ColorPropType } from 'react-native';
 
-  /**
-   * Expo Accelerometer
-   */
   export namespace Accelerometer {
     // TODO: good export type of x, y and z
     export interface AccelerometerObject {
@@ -19,9 +16,6 @@ declare module 'expo' {
     export function setUpdateInterval(intervalMs: number): void
   }
 
-  /**
-   * Expo Amplitude
-   */
   export namespace Amplitude {
     export function initialize(apiKey: string): void;
     export function setUserId(userId: string): void;
@@ -32,9 +26,195 @@ declare module 'expo' {
     export function setGroup(groupType: string, groupNames: object): void;
   }
 
-  /**
-   * Expo Components
-   */
+  interface AssetOptions {
+    name: string,
+    type: string,
+    hash: string,
+    uri: string,
+    width: number,
+    height: number
+  }
+
+  export class Asset {
+    constructor(options: AssetOptions);
+
+    public name: string;
+    public type: string;
+    public hash: string;
+    public uri: string;
+    public localUri: string;
+    public width?: number;
+    public height?: number;
+
+    // TODO: make sure that these values should be readonly
+    public readonly downloading: boolean;
+    public readonly downloaded: boolean;
+    public readonly downloadCallbacks: Array<{ resolve: () => any, reject: () => any }>   // TODO: def of resolve & reject
+
+    public downloadAsync(): void;
+
+    static fromModule(moduleId: number): Asset;
+  }
+
+  export namespace Audio {
+
+    export enum InterruptionModeIOS {
+      INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS = 0,
+      INTERRUPTION_MODE_IOS_DO_NOT_MIX = 1,
+      INTERRUPTION_MODE_IOS_DUCK_OTHERS = 2
+    }
+
+    export enum InterruptionModeAndroid {
+      INTERRUPTION_MODE_ANDROID_DO_NOT_MIX = 1,
+      INTERRUPTION_MODE_ANDROID_DUCK_OTHERS = 2
+    }
+
+    export type SoundStatus =
+      {
+        isLoaded: false
+      } | {
+        isLoaded: true,
+        isPlaying: boolean,
+        durationMillis: number,
+        positionMillis: number,
+        rate: number,
+        shouldCorrectPitch: boolean,
+        volume: number,
+        isMuted: boolean,
+        isLooping: boolean,
+        didJustFinish: boolean
+      };
+
+    export type RecordingStatus =
+      {
+        canRecord: false,
+        isDoneRecording: false
+      } | {
+        canRecord: true,
+        isRecording: boolean,
+        durationMillis: number
+      } | {
+        canRecord: false,
+        isDoneRecording: true,
+        durationMillis: number
+      };
+
+    export type AudioMode = {
+      allowsRecordingIOS: boolean,
+      interruptionModeIOS: InterruptionModeIOS,
+      playsInSilentLockedModeIOS: boolean,
+      interruptionModeAndroid: InterruptionModeAndroid,
+      shouldDuckAndroid: boolean
+    };
+
+    export function setAudioModeAsync(mode: AudioMode): Promise<void>;  // TODO: better return
+
+    /**
+     * Expo Sound
+     */
+    export interface SoundOptions {
+      source: number | string | Asset
+    }
+
+    export class Sound {
+      constructor(options: SoundOptions);
+
+      getStatusAsync(): Promise<SoundStatus>
+      setCallback(callback: (status: SoundStatus) => any): void;
+      setCallbackPollingMillis(millis: number): void;
+
+      unloadAsync(): Promise<SoundStatus>;
+      playAsync(): Promise<SoundStatus>;
+      pauseAsync(): Promise<SoundStatus>;
+      stopAsync(): Promise<SoundStatus>;
+      setPositionAsync(millis: number): Promise<SoundStatus>;
+      setRateAsync(
+        value: number,
+        shouldCorrectPitch: boolean
+      ): Promise<SoundStatus>;
+      setVolumeAsync(value: number): Promise<SoundStatus>;
+      setIsMutedAsync(value: boolean): Promise<SoundStatus>;
+      setIsLoopingAsync(value: boolean): Promise<SoundStatus>;
+    }
+
+    export class Recording {
+      constructor();
+
+      getStatusAsync(): Promise<RecordingStatus>
+      setCallback(callback: (status: RecordingStatus) => any): void;
+      setCallbackPollingMillis(millis: number): void;
+
+      prepareToRecordAsync(): Promise<RecordingStatus>;
+      isPreparedToRecord(): boolean;  // Note @pierre-H : I found this function on the v16.0.0 doc, not in the code so have to check it.
+      startAsync(): Promise<RecordingStatus>;
+      pauseAsync(): Promise<RecordingStatus>;
+      stopAndUnloadAsync(): Promise<RecordingStatus>;
+
+      getURI(): string | undefined;
+      getNewSound(): Sound | null
+    }
+  }
+
+  export namespace Contacts {
+    export type FieldType = 'phoneNumbers' | 'emails' | 'addresses';
+
+    export interface Options {
+      pageSize?: number;
+      pageOffset?: number;
+      fields?: Array<FieldType>
+    }
+
+    export interface Contact {
+      id: number;
+      name: string;
+      firstName?: string;
+      middleName?: string;
+      lastName?: string;
+      emails?: Array<{
+        email?: string,
+        primary?: boolean,
+        label: string
+      }>;
+      phoneNumbers?: Array<{
+        number?: string,
+        primary?: boolean,
+        label: string
+      }>;
+      addresses?: Array<{
+        street?: string,
+        city?: string,
+        country?: string,
+        region?: string,
+        neighborhood?: string,
+        postcode?: string,
+        pobox?: string,
+        label: string
+      }>;
+      company?: string;
+      jobTitle?: string;
+    }
+
+    export interface Response {
+      data: Array<Contact>,
+      total: number,
+      hasNextPage: boolean,
+      hasPreviousPage: boolean,
+    }
+
+    export const PHONE_NUMBERS = 'phoneNumbers';
+    export const EMAILS = 'emails';
+    export const ADDRESSES = 'addresses';
+
+    export type Field = 'phoneNumbers' | 'emails' | 'addresses';
+
+    export interface Options {
+      pageSize?: number;
+      pageOffset?: number;
+      fields?: Array<Field>
+    }
+    export function getContactsAsync(options: Options): Promise<Response>;
+  }
+
   export namespace Components {
     /**
      * AppLoading
@@ -163,197 +343,6 @@ declare module 'expo' {
     }
   }
 
-  /**
-   * Expo Asset
-   */
-  export class Asset {
-    constructor({ name, type, hash, uri, width, height });
-    public name: string;
-    public type: string;
-    public hash: string;
-    public uri: string;
-    public localUri: string;
-    public width?: number;
-    public height?: number;
-
-    // TODO: make sure that these values should be readonly
-    public readonly downloading: boolean;
-    public readonly downloaded: boolean;
-    public readonly downloadCallbacks: Array<{ resolve, reject }>   // TODO: def of resolve & reject
-
-    public downloadAsync(): void;
-
-    static fromModule(moduleId: number): Asset;
-  }
-
-  /**
-   * Expo Audio
-   */
-  export namespace Audio {
-
-    export enum InterruptionModeIOS {
-      INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS = 0,
-      INTERRUPTION_MODE_IOS_DO_NOT_MIX = 1,
-      INTERRUPTION_MODE_IOS_DUCK_OTHERS = 2
-    }
-
-    export enum InterruptionModeAndroid {
-      INTERRUPTION_MODE_ANDROID_DO_NOT_MIX = 1,
-      INTERRUPTION_MODE_ANDROID_DUCK_OTHERS = 2
-    }
-
-    export type SoundStatus =
-      {
-        isLoaded: false
-      } | {
-        isLoaded: true,
-        isPlaying: boolean,
-        durationMillis: number,
-        positionMillis: number,
-        rate: number,
-        shouldCorrectPitch: boolean,
-        volume: number,
-        isMuted: boolean,
-        isLooping: boolean,
-        didJustFinish: boolean
-      };
-
-    export type RecordingStatus =
-      {
-        canRecord: false,
-        isDoneRecording: false
-      } | {
-        canRecord: true,
-        isRecording: boolean,
-        durationMillis: number
-      } | {
-        canRecord: false,
-        isDoneRecording: true,
-        durationMillis: number
-      };
-
-    export type AudioMode = {
-      allowsRecordingIOS: boolean,
-      interruptionModeIOS: InterruptionModeIOS,
-      playsInSilentLockedModeIOS: boolean,
-      interruptionModeAndroid: InterruptionModeAndroid,
-      shouldDuckAndroid: boolean
-    };
-
-    export function setAudioModeAsync(mode: AudioMode): Promise<void>;  // TODO: better return
-
-    /**
-     * Expo Sound
-     */
-    export interface SoundOptions {
-      source: number | string | Asset
-    }
-
-    export class Sound {
-      constructor(options: SoundOptions);
-
-      getStatusAsync(): Promise<SoundStatus>
-      setCallback(callback: (status: SoundStatus) => any): void;
-      setCallbackPollingMillis(millis: number): void;
-
-      unloadAsync(): Promise<SoundStatus>;
-      playAsync(): Promise<SoundStatus>;
-      pauseAsync(): Promise<SoundStatus>;
-      stopAsync(): Promise<SoundStatus>;
-      setPositionAsync(millis: number): Promise<SoundStatus>;
-      setRateAsync(
-        value: number,
-        shouldCorrectPitch: boolean
-      ): Promise<SoundStatus>;
-      setVolumeAsync(value: number): Promise<SoundStatus>;
-      setIsMutedAsync(value: boolean): Promise<SoundStatus>;
-      setIsLoopingAsync(value: boolean): Promise<SoundStatus>;
-    }
-
-    export class Recording {
-      constructor();
-
-      getStatusAsync(): Promise<RecordingStatus>
-      setCallback(callback: (status: RecordingStatus) => any): void;
-      setCallbackPollingMillis(millis: number): void;
-
-      prepareToRecordAsync(): Promise<RecordingStatus>;
-      isPreparedToRecord(): boolean;  // Note @pierre-H : I found this function on the v16.0.0 doc, not in the code so have to check it.
-      startAsync(): Promise<RecordingStatus>;
-      pauseAsync(): Promise<RecordingStatus>;
-      stopAndUnloadAsync(): Promise<RecordingStatus>;
-
-      getURI(): string | undefined;
-      getNewSound(): Sound | null
-    }
-  }
-
-  /**
-   * Expo Contacts
-   */
-  export namespace Contacts {
-    export type FieldType = 'phoneNumbers' | 'emails' | 'addresses';
-
-    export interface Options {
-      pageSize?: number;
-      pageOffset?: number;
-      fields?: Array<FieldType>
-    }
-
-    export interface Contact {
-      id: number;
-      name: string;
-      firstName?: string;
-      middleName?: string;
-      lastName?: string;
-      emails?: Array<{
-        email?: string,
-        primary?: boolean,
-        label: string
-      }>;
-      phoneNumbers?: Array<{
-        number?: string,
-        primary?: boolean,
-        label: string
-      }>;
-      addresses?: Array<{
-        street?: string,
-        city?: string,
-        country?: string,
-        region?: string,
-        neighborhood?: string,
-        postcode?: string,
-        pobox?: string,
-        label: string
-      }>;
-      company?: string;
-      jobTitle?: string;
-    }
-
-    export interface Response {
-      data: Array<Contact>,
-      total: number,
-      hasNextPage: boolean,
-      hasPreviousPage: boolean,
-    }
-
-    export const PHONE_NUMBERS = 'phoneNumbers';
-    export const EMAILS = 'emails';
-    export const ADDRESSES = 'addresses';
-
-    export type Field = 'phoneNumbers' | 'emails' | 'addresses';
-
-    export interface Options {
-      pageSize?: number;
-      pageOffset?: number;
-      fields?: Array<Field>
-    }
-    export function getContactsAsync(options: Options): Promise<Response>;
-  }
-
-  /**
-   * Expo DocumentPicker
-   */
   export namespace DocumentPicker {
     export interface Options {
       type: string;
@@ -370,16 +359,10 @@ declare module 'expo' {
     export function getDocumentAsync(options: Options): Response;
   }
 
-  /**
-   * Expo ErrorRecovery
-   */
   export namespace ErrorRecovery {
     export function setRecoveryProps(props: object): void;
   }
 
-  /**
-   * Expo Facebook
-   */
   export namespace Facebook {
     export interface Options {
       permissions?: Array<string>;
@@ -395,9 +378,6 @@ declare module 'expo' {
     export function logInWithReadPermissionsAsync(appId: string, options: Options): void;
   }
 
-  /**
-   * Expo Facebook Ads
-   */
   export namespace FacebookAds {
     /**
      * Interstitial Ads
@@ -413,7 +393,7 @@ declare module 'expo' {
     export class NativeAdsManager {
       constructor(placementId: string, numberOfAdsToRequest?: number);
       disableAutoRefresh(): void;
-      setMediaCachePolicy(iOS: MediaCachePolicy);
+      setMediaCachePolicy(iOS: MediaCachePolicy): any;
     }
 
 
@@ -462,16 +442,10 @@ declare module 'expo' {
     }
   }
 
-  /**
-   * Expo Font
-   */
   export namespace Font {
     export function loadAsync(nameOrMap: string | object, uriOrModuleOrAsset: any): void;  // TODO: better defs because the doc is not updated I think ...
   }
 
-  /**
-   * Expo Google
-   */
   export namespace Google {
     export interface LogInConfig {
       androidClientId?: string;
@@ -503,9 +477,6 @@ declare module 'expo' {
     export function logInAsync(config: LogInConfig): Promise<LogInResult>
   }
 
-  /**
-   * Expo Gyroscope
-   */
   export namespace Gyroscope {
     // TODO: good export type of x, y and z
     export interface GyroscopeObject {
@@ -519,9 +490,6 @@ declare module 'expo' {
     export function setUpdateInterval(intervalMs: number): void
   }
 
-  /**
-   * Expo Image Picker
-   */
   export namespace ImagePicker {
     export interface ImageInfo {
       uri: string;
@@ -547,9 +515,6 @@ declare module 'expo' {
     export function launchCameraAsync(options?: CameraOptions): Promise<ImageResult>;
   }
 
-  /**
-   * Expo Location
-   */
   export namespace Location {
     export interface LocationOptions {
       enableHighAccuracy?: boolean;
@@ -575,9 +540,6 @@ declare module 'expo' {
     export function watchPositionAsync(options: LocationOptions, callback: (data: LocationData) => any): EventSubscription;
   }
 
-  /**
-   * Expo Notifications
-   */
   export namespace Notifications {
     export interface Notification {
       origin: 'selected' | 'received';
@@ -621,9 +583,6 @@ declare module 'expo' {
     export function setBadgeNumberAsync(number: number): Promise<void>;
   }
 
-  /**
-   * Expo Permissions
-   */
   export namespace Permissions {
     export type PermissionType = 'remoteNotifications'
       | 'location'
@@ -657,10 +616,7 @@ declare module 'expo' {
     export const CONTACTS: string;
   }
 
-  /**
-   * Expo Segment
-   * TODO: check that all these functions return void or not
-   */
+  // TODO: check that all these functions return void or not.
   export namespace Segment {
     export function initializeIOS(writeKey: string): void;
     export function initializeAndroid(writeKey: string): void;
@@ -671,9 +627,6 @@ declare module 'expo' {
     export function flush(): void;
   }
 
-  /**
-   * Expo SQLite
-   */
   export namespace SQLite {
     type Error = any;
 
@@ -691,7 +644,7 @@ declare module 'expo' {
         arguments?: Array<string | number>,
         success?: (transaction: Transaction, resultSet: ResultSet) => any,
         error?: (transaction: Transaction, error: Error) => any
-      )
+      ): any
     }
 
     export interface ResultSet {
@@ -716,19 +669,13 @@ declare module 'expo' {
       description?: string,
       size?: number,
       callback?: () => any
-    )
+    ): any
   }
 
-  /**
-   * Register Root Component
-   * TODO: verify if it's a good idea or not to use Generics
-   * Useful when using function like react-redux connect for example
-   */
+  /** Register Root Component. Useful when using function like react-redux connect for example. */
+  // TODO: verify if it's a good idea or not to use generics.
   export function registerRootComponent<P, S>(component: React.Component<P, S>): React.Component<P, S>;
 
-  /**
-   * Expo Take Snapshop
-   */
   export function takeSnapshotAsync(
     view?: (number | React.ReactElement<any>),
     options?: {
@@ -740,17 +687,11 @@ declare module 'expo' {
     }
   ): Promise<string>;
 
-  /**
-   * Expo Util
-   */
   export namespace Util {
     export function getCurrentLocaleAsync(): Promise<string>;
     export function reload(): void;
   }
 
-  /**
-   * Expo Web Browser
-   */
   export namespace WebBrowser {
     export function openBrowserAsync(url: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
     export function dismissBrowser(): Promise<{ type: 'dismissed' }>;
