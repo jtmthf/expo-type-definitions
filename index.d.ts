@@ -2,8 +2,11 @@ declare module 'expo' {
     import { ColorPropType } from 'react-native';
     import { Component } from 'react';
     import { EventSubscription } from 'fbemitter';
+    import { GestureResponderEvent } from 'react-native';
+    import { PanResponderGestureState } from 'react-native';
     import { ViewProperties } from 'react-native';
     import { ViewStyle } from 'react-native';
+    import { ImageURISource } from 'react-native';
 
     export namespace Accelerometer {
         // TODO: good export type of x, y and z
@@ -794,151 +797,248 @@ declare module 'expo' {
         ): any
     }
 
-    interface SvgCommonProps {
-        fill?: string
-        fillOpacity?: number | string
-        origin?: number | string
-        originX?: number | string
-        originY?: number | string
-        rotate?: number | string
-        scale?: number | string
-        stroke?: string
-        strokeDasharray?: Array<any>
-        strokeDashoffset?: number | null
-        strokeLinecap?: 'butt' | 'square' | 'round'
-        strokeLineJoin?: 'miter' | 'bevel' | 'round'
-        strokeOpacity?: number | string
-        strokeWidth?: number | string
-        x?: number | string
-        y?: number | string
-    }
-
-    interface CircleProps extends SvgCommonProps {
-        cx: number | string
-        cy: number | string
-        r: number | string
-    }
-
-    interface ClipPath {
-        id: string
-    }
-
-    interface EllipseProps extends CircleProps {
-        cx: number | string
-        cy: number | string
-        rx: number | string
-        ry: number | string
-    }
-
-    interface LinearGradientProps extends SvgCommonProps {
-        id: string
-        x1: number | string
-        x2: number | string
-        y1: number | string
-        y2: number | string
-    }
-
-    interface LineProps extends SvgCommonProps {
-        x1: number | string
-        x2: number | string
-        y1: number | string
-        y2: number | string
-    }
-
-    interface PathProps extends SvgCommonProps {
-        d: string
-    }
-
-    interface PolyProps extends SvgCommonProps {
-        points: string
-    }
-
-    interface PathLine extends SvgCommonProps {
-        d: string;
-    }
-
-    interface RectProps extends SvgCommonProps {
-        clipPath?: string
-        height: number | string
-        width: number | string
-    }
-
-    interface RadialGradientProps extends SvgCommonProps {
-        cx: number | string
-        cy: number | string
-        fx: number | string
-        fy: number | string
-        gradientUnits: string
-        id: string
-        rx: number | string
-        ry: number | string
-    }
-
-    interface SvgProps {
-        height?: number | string
-        opacity?: number | string
-        preserveAspectRatio?: string
-        viewBox?: string
-        width?: number | string
-    }
-
-    interface SymbolProps {
-        height: number | string
-        viewbox: string
-        width: number | string
-    }
-
-    interface StopProps {
-        offset?: number | string
-        stopColor?: string
-        stopOpacity?: number | string
-    }
-
-    interface TextProps extends SvgCommonProps {
-        fontFamily?: string
-        fontSize?: number | string
-        fontWeight?: string
-        letterSpacing?: number | string
-        style?: string
-        textAnchor?: string
-        transform?: object
-        wordSpacing?: number | string
-    }
-
-    interface TextPathProps extends SvgCommonProps {
-        href: string
-        startOffset: string
-    }
-
-    interface TSpanProps extends TextProps {
-        dx?: string
-        dy?: string
-    }
-
-    interface UseProps {
-        href: string
-        x: number | string
-        y: number | string
-    }
-
-    export class Svg extends Component<SvgProps, {}> { }
+    export class Svg extends Component<Svg.SvgProps, {}> { }
 
     export namespace Svg {
+        type NumberProp = number | string
+
+        interface TouchableProps {
+            delayLongPress?: number;
+            delayPressIn?: number;
+            delayPressOut?: number;
+            disabled?: boolean;
+            onLongPress?: (...args: Array<any>) => any;
+            onPress?: (...args: Array<any>) => any;
+            onPressIn?: (...args: Array<any>) => any;
+            onPressOut?: (...args: Array<any>) => any;
+        }
+
+        interface ResponderProps {
+            onMoveShouldSetPanResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+            onMoveShouldSetPanResponderCapture?: (e, gestureState) => any;
+            onPanResponderEnd?: (e, gestureState) => any;
+            onPanResponderGrant?: (e, gestureState) => any;
+            onPanResponderMove?: (e, gestureState) => any;
+            onPanResponderReject?: (e, gestureState) => any;
+            onPanResponderRelease?: (e, gestureState) => any;
+            onPanResponderStart?: (e, gestureState) => any;
+            onPanResponderTerminate?: (e, gestureState) => any;
+            onPanResponderTerminationRequest?: (e, gestureState) => any;
+            onShouldBlockNativeResponder?: (e, gestureState) => any;
+            onStartShouldSetPanResponder?: (e, gestureState) => any;
+            onStartShouldSetPanResponderCapture?: (e, gestureState) => any;
+        }
+
+        interface FillProps {
+            fill?: string;
+            fillOpacity?: NumberProp;
+            fillRule?: 'evenodd' | 'nonzero';
+        }
+
+        interface ClipProps {
+            clipPath?: string;
+            clipRule?: 'evenodd' | 'nonzero';
+        }
+
+        interface DefinationProps {
+            name?: string;
+        }
+
+        interface StrokeProps {
+            stroke?: string;
+            strokeDasharray?: Array<number> | string;
+            strokeDashoffset?: NumberProp;
+            strokeLinecap?: 'butt' | 'square' | 'round';
+            strokeLinejoin?: 'miter' | 'bevel' | 'round';
+            strokeMiterlimit?: NumberProp;
+            strokeOpacity?: NumberProp;
+            strokeWidth?: NumberProp;
+        }
+
+        interface FontProps {
+            fontFamily?: string;
+            fontSize?: NumberProp;
+            fontWeight?: NumberProp;
+            fontStyle?: string;
+            font?: object;
+        }
+
+        interface TransformProps {
+            origin?: NumberProp;
+            originX?: NumberProp;
+            originY?: NumberProp;
+            rotate?: NumberProp;
+            rotation?: NumberProp;
+            scale?: NumberProp;
+            scaleX?: NumberProp;
+            scaleY?: NumberProp;
+            skew?: NumberProp;
+            skewX?: NumberProp;
+            skewY?: NumberProp;
+            transform?: object
+            translate?: NumberProp;
+            translateX?: NumberProp;
+            translateY?: NumberProp;
+            x?: NumberProp;
+            y?: NumberProp;
+        }
+
+        interface SharedPathProps extends
+            ClipProps,
+            DefinationProps,
+            FillProps,
+            ResponderProps,
+            StrokeProps,
+            TouchableProps,
+            TransformProps {
+        }
+
+        interface CircleProps extends SharedPathProps {
+            cx: NumberProp;
+            cy: NumberProp;
+            r: NumberProp;
+        }
+
+        interface ClipPathProps {
+            id: string;
+        }
+
+        interface EllipseProps extends SharedPathProps {
+            cx: NumberProp;
+            cy: NumberProp;
+            rx: NumberProp;
+            ry: NumberProp;
+        }
+
+        interface ImageProps extends ResponderProps, TouchableProps {
+            height: NumberProp;
+            href?: ImageURISource | Array<ImageURISource>;
+            preserveAspectRatio?: string;
+            width: NumberProp;
+            x?: NumberProp;
+            y?: NumberProp;
+        }
+
+        interface LineProps extends SharedPathProps {
+            x1: NumberProp;
+            x2: NumberProp;
+            y1: NumberProp;
+            y2: NumberProp;
+        }
+
+        interface LinearGradientProps {
+            gradientUnits?: 'objectBoundingBox' | 'userSpaceOnUse';
+            id: string
+            x1: NumberProp;
+            x2: NumberProp;
+            y1: NumberProp;
+            y2: NumberProp;
+        }
+
+        interface PathProps extends SharedPathProps {
+            d: string;
+        }
+
+        interface PatternProps {
+            patternContentUnits?: 'userSpaceOnUse' | 'objectBoundingBox';
+            patternTransform?: string;
+            patternUnits?: 'userSpaceOnUse' | 'objectBoundingBox';
+            x1?: NumberProp;
+            x2?: NumberProp;
+            y1?: NumberProp;
+            y2?: NumberProp;
+        }
+
+        interface PolygonProps extends SharedPathProps {
+            points: string | Array<any>;
+        }
+
+        interface PolylineProps extends SharedPathProps {
+            points: string | Array<any>;
+        }
+
+        interface RadialGradientProps {
+            cx: NumberProp;
+            cy: NumberProp;
+            fx: NumberProp;
+            fy: NumberProp;
+            gradientUnits?: 'objectBoundingBox' | 'userSpaceOnUse';
+            id: string;
+            r?: NumberProp;
+            rx?: NumberProp;
+            ry?: NumberProp;
+        }
+
+        interface RectProps extends SharedPathProps {
+            height: NumberProp;
+            rx?: NumberProp;
+            ry?: NumberProp;
+            width: NumberProp;
+            x: NumberProp;
+            y: NumberProp;
+        }
+
+        interface StopProps {
+            stopColor?: string,
+            stopOpacity?: NumberProp
+        }
+
+        interface SvgProps extends ViewProperties {
+            height?: NumberProp;
+            opacity?: NumberProp;
+            preserveAspectRatio?: string;
+            viewBox?: string;
+            width?: NumberProp;
+        }
+
+        interface SymbolProps {
+            id: string;
+            preserveAspectRatio?: string;
+            viewBox?: string;
+        }
+
+        interface TextProps extends FontProps, SharedPathProps {
+            dx?: NumberProp;
+            dy?: NumberProp;
+            textAnchor?: 'start' | 'middle' | 'end';
+        }
+
+        interface TextPathProps extends FontProps, SharedPathProps {
+            href: string;
+            startOffset?: NumberProp;
+        }
+
+        interface TSpanProps extends FontProps, SharedPathProps {
+            dx?: NumberProp;
+            dy?: NumberProp;
+            textAnchor?: 'start' | 'middle' | 'end';
+        }
+
+        interface UseProps extends SharedPathProps {
+            height?: NumberProp;
+            href: string;
+            width?: NumberProp;
+        }
+
         export class Circle extends Component<CircleProps, {}> { }
-        export class ClipPath extends Component<ClipPath, {}> { }
+        export class ClipPath extends Component<ClipPathProps, {}> { }
         export class Defs extends Component<{}, {}> { }
-        export class Ellipse extends Component<SvgCommonProps, {}> { }
-        export class G extends Component<SvgCommonProps, {}> { }
+        export class Ellipse extends Component<EllipseProps, {}> { }
+        export class G extends Component<SharedPathProps, {}> { }
+        export class Image extends Component<ImageProps, {}> { }
         export class Line extends Component<LineProps, {}> { }
         export class LinearGradient extends Component<LinearGradientProps, {}> {  }
         export class Path extends Component<PathProps, {}> { }
-        export class Polygon extends Component<PolyProps, {}> { }
-        export class Polyline extends Component<PolyProps, {}> { }
+        export class Pattern extends Component<PatternProps, {}> { }
+        export class Polygon extends Component<PolygonProps, {}> { }
+        export class Polyline extends Component<PolylineProps, {}> { }
         export class RadialGradient extends Component<RadialGradientProps, {}> { }
         export class Rect extends Component<RectProps, {}> { }
+        export class Shape extends Component<{}, {}> { }
         export class Stop extends Component<StopProps, {}> {  }
         export class Symbol extends Component<SymbolProps, {}> { }
         export class Text extends Component<TextProps, {}> { }
+        export class TextPath extends Component<TextPathProps, {}> { }
         export class TSpan extends Component<TSpanProps, {}> {  }
         export class Use extends Component<UseProps, {}> { }
     }
