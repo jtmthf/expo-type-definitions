@@ -6,7 +6,7 @@
     "name": "Jan Aagaard",
     "email": "jan@aagaard.net"
   },
-  "types": "./index.d.ts",
+  "typings": "./index.d.ts",
   "private": false,
   "devDependencies": {
     "@types/fbemitter": "2.x.x",
