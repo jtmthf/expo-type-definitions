@@ -802,37 +802,14 @@ declare module 'expo' {
     export namespace Svg {
         type NumberProp = number | string
 
-        interface TouchableProps {
-            delayLongPress?: number;
-            delayPressIn?: number;
-            delayPressOut?: number;
-            disabled?: boolean;
-            onLongPress?: (...args: Array<any>) => any;
-            onPress?: (...args: Array<any>) => any;
-            onPressIn?: (...args: Array<any>) => any;
-            onPressOut?: (...args: Array<any>) => any;
+        interface CircleProps extends SharedPathProps {
+            cx: NumberProp;
+            cy: NumberProp;
+            r: NumberProp;
         }
 
-        interface ResponderProps {
-            onMoveShouldSetPanResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
-            onMoveShouldSetPanResponderCapture?: (e, gestureState) => any;
-            onPanResponderEnd?: (e, gestureState) => any;
-            onPanResponderGrant?: (e, gestureState) => any;
-            onPanResponderMove?: (e, gestureState) => any;
-            onPanResponderReject?: (e, gestureState) => any;
-            onPanResponderRelease?: (e, gestureState) => any;
-            onPanResponderStart?: (e, gestureState) => any;
-            onPanResponderTerminate?: (e, gestureState) => any;
-            onPanResponderTerminationRequest?: (e, gestureState) => any;
-            onShouldBlockNativeResponder?: (e, gestureState) => any;
-            onStartShouldSetPanResponder?: (e, gestureState) => any;
-            onStartShouldSetPanResponderCapture?: (e, gestureState) => any;
-        }
-
-        interface FillProps {
-            fill?: string;
-            fillOpacity?: NumberProp;
-            fillRule?: 'evenodd' | 'nonzero';
+        interface ClipPathProps {
+            id: string;
         }
 
         interface ClipProps {
@@ -844,15 +821,17 @@ declare module 'expo' {
             name?: string;
         }
 
-        interface StrokeProps {
-            stroke?: string;
-            strokeDasharray?: Array<number> | string;
-            strokeDashoffset?: NumberProp;
-            strokeLinecap?: 'butt' | 'square' | 'round';
-            strokeLinejoin?: 'miter' | 'bevel' | 'round';
-            strokeMiterlimit?: NumberProp;
-            strokeOpacity?: NumberProp;
-            strokeWidth?: NumberProp;
+        interface EllipseProps extends SharedPathProps {
+            cx: NumberProp;
+            cy: NumberProp;
+            rx: NumberProp;
+            ry: NumberProp;
+        }
+
+        interface FillProps {
+            fill?: string;
+            fillOpacity?: NumberProp;
+            fillRule?: 'evenodd' | 'nonzero';
         }
 
         interface FontProps {
@@ -861,53 +840,6 @@ declare module 'expo' {
             fontWeight?: NumberProp;
             fontStyle?: string;
             font?: object;
-        }
-
-        interface TransformProps {
-            origin?: NumberProp;
-            originX?: NumberProp;
-            originY?: NumberProp;
-            rotate?: NumberProp;
-            rotation?: NumberProp;
-            scale?: NumberProp;
-            scaleX?: NumberProp;
-            scaleY?: NumberProp;
-            skew?: NumberProp;
-            skewX?: NumberProp;
-            skewY?: NumberProp;
-            transform?: object
-            translate?: NumberProp;
-            translateX?: NumberProp;
-            translateY?: NumberProp;
-            x?: NumberProp;
-            y?: NumberProp;
-        }
-
-        interface SharedPathProps extends
-            ClipProps,
-            DefinationProps,
-            FillProps,
-            ResponderProps,
-            StrokeProps,
-            TouchableProps,
-            TransformProps {
-        }
-
-        interface CircleProps extends SharedPathProps {
-            cx: NumberProp;
-            cy: NumberProp;
-            r: NumberProp;
-        }
-
-        interface ClipPathProps {
-            id: string;
-        }
-
-        interface EllipseProps extends SharedPathProps {
-            cx: NumberProp;
-            cy: NumberProp;
-            rx: NumberProp;
-            ry: NumberProp;
         }
 
         interface ImageProps extends ResponderProps, TouchableProps {
@@ -919,16 +851,16 @@ declare module 'expo' {
             y?: NumberProp;
         }
 
-        interface LineProps extends SharedPathProps {
+        interface LinearGradientProps {
+            gradientUnits?: 'objectBoundingBox' | 'userSpaceOnUse';
+            id: string
             x1: NumberProp;
             x2: NumberProp;
             y1: NumberProp;
             y2: NumberProp;
         }
 
-        interface LinearGradientProps {
-            gradientUnits?: 'objectBoundingBox' | 'userSpaceOnUse';
-            id: string
+        interface LineProps extends SharedPathProps {
             x1: NumberProp;
             x2: NumberProp;
             y1: NumberProp;
@@ -978,9 +910,46 @@ declare module 'expo' {
             y: NumberProp;
         }
 
+        interface ResponderProps {
+            onMoveShouldSetPanResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+            onMoveShouldSetPanResponderCapture?: (e, gestureState) => any;
+            onPanResponderEnd?: (e, gestureState) => any;
+            onPanResponderGrant?: (e, gestureState) => any;
+            onPanResponderMove?: (e, gestureState) => any;
+            onPanResponderReject?: (e, gestureState) => any;
+            onPanResponderRelease?: (e, gestureState) => any;
+            onPanResponderStart?: (e, gestureState) => any;
+            onPanResponderTerminate?: (e, gestureState) => any;
+            onPanResponderTerminationRequest?: (e, gestureState) => any;
+            onShouldBlockNativeResponder?: (e, gestureState) => any;
+            onStartShouldSetPanResponder?: (e, gestureState) => any;
+            onStartShouldSetPanResponderCapture?: (e, gestureState) => any;
+        }
+
+        interface SharedPathProps extends
+            ClipProps,
+            DefinationProps,
+            FillProps,
+            ResponderProps,
+            StrokeProps,
+            TouchableProps,
+            TransformProps {
+        }
+
         interface StopProps {
             stopColor?: string,
             stopOpacity?: NumberProp
+        }
+
+        interface StrokeProps {
+            stroke?: string;
+            strokeDasharray?: Array<number> | string;
+            strokeDashoffset?: NumberProp;
+            strokeLinecap?: 'butt' | 'square' | 'round';
+            strokeLinejoin?: 'miter' | 'bevel' | 'round';
+            strokeMiterlimit?: NumberProp;
+            strokeOpacity?: NumberProp;
+            strokeWidth?: NumberProp;
         }
 
         interface SvgProps extends ViewProperties {
@@ -1006,6 +975,37 @@ declare module 'expo' {
         interface TextPathProps extends FontProps, SharedPathProps {
             href: string;
             startOffset?: NumberProp;
+        }
+
+        interface TouchableProps {
+            delayLongPress?: number;
+            delayPressIn?: number;
+            delayPressOut?: number;
+            disabled?: boolean;
+            onLongPress?: (...args: Array<any>) => any;
+            onPress?: (...args: Array<any>) => any;
+            onPressIn?: (...args: Array<any>) => any;
+            onPressOut?: (...args: Array<any>) => any;
+        }
+
+        interface TransformProps {
+            origin?: NumberProp;
+            originX?: NumberProp;
+            originY?: NumberProp;
+            rotate?: NumberProp;
+            rotation?: NumberProp;
+            scale?: NumberProp;
+            scaleX?: NumberProp;
+            scaleY?: NumberProp;
+            skew?: NumberProp;
+            skewX?: NumberProp;
+            skewY?: NumberProp;
+            transform?: object
+            translate?: NumberProp;
+            translateX?: NumberProp;
+            translateY?: NumberProp;
+            x?: NumberProp;
+            y?: NumberProp;
         }
 
         interface TSpanProps extends FontProps, SharedPathProps {
