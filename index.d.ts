@@ -912,18 +912,18 @@ declare module 'expo' {
 
         interface ResponderProps {
             onMoveShouldSetPanResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
-            onMoveShouldSetPanResponderCapture?: (e, gestureState) => any;
-            onPanResponderEnd?: (e, gestureState) => any;
-            onPanResponderGrant?: (e, gestureState) => any;
-            onPanResponderMove?: (e, gestureState) => any;
-            onPanResponderReject?: (e, gestureState) => any;
-            onPanResponderRelease?: (e, gestureState) => any;
-            onPanResponderStart?: (e, gestureState) => any;
-            onPanResponderTerminate?: (e, gestureState) => any;
-            onPanResponderTerminationRequest?: (e, gestureState) => any;
-            onShouldBlockNativeResponder?: (e, gestureState) => any;
-            onStartShouldSetPanResponder?: (e, gestureState) => any;
-            onStartShouldSetPanResponderCapture?: (e, gestureState) => any;
+            onMoveShouldSetPanResponderCapture?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+            onPanResponderEnd?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+            onPanResponderGrant?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+            onPanResponderMove?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+            onPanResponderReject?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+            onPanResponderRelease?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+            onPanResponderStart?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+            onPanResponderTerminate?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+            onPanResponderTerminationRequest?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+            onShouldBlockNativeResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+            onStartShouldSetPanResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
+            onStartShouldSetPanResponderCapture?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => any;
         }
 
         interface SharedPathProps extends
