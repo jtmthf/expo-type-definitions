@@ -741,6 +741,36 @@ declare module 'expo' {
     // TODO: verify if it's a good idea or not to use generics.
     export function registerRootComponent<P, S>(component: React.Component<P, S>): React.Component<P, S>;
 
+    export namespace ScreenOrientation {
+        export namespace Orientation {
+            /** All 4 possible orientations */
+            export const ALL: 'ALL'
+
+            /** All but reverse portrait, could be all 4 orientations on certain Android devices. */
+            export const ALL_BUT_UPSIDE_DOWN: 'ALL_BUT_UPSIDE_DOWN';
+
+            /** Portrait orientation, could also be reverse portrait on certain Android devices. */
+            export const PORTRAIT: 'PORTRAIT';
+
+            /** Upside portrait only. */
+            export const PORTRAIT_UP: 'PORTRAIT_UP';
+
+            /** Upside down portrait only. */
+            export const PORTRAIT_DOWN: 'PORTRAIT_DOWN';
+
+            /** Any landscape orientation. */
+            export const LANDSCAPE: 'LANDSCAPE';
+
+            /** Left landscape only. */
+            export const LANDSCAPE_LEFT: 'LANDSCAPE_LEFT';
+
+            /** Right landscape only. */
+            export const LANDSCAPE_RIGHT: 'LANDSCAPE_RIGHT';
+        }
+
+        export function allow(orientation: 'ALL' | 'ALL_BUT_UPSIDE_DOWN' | 'PORTRAIT' | 'PORTRAIT_UP' | 'PORTRAIT_DOWN' | 'LANDSCAPE' | 'LANDSCAPE_LEFT' | 'LANDSCAPE_RIGHT'): void;
+    }
+
     // TODO: check that all these functions return void or not.
     export namespace Segment {
         export function initializeIOS(writeKey: string): void;
@@ -1027,7 +1057,7 @@ declare module 'expo' {
         export class G extends Component<SharedPathProps, {}> { }
         export class Image extends Component<ImageProps, {}> { }
         export class Line extends Component<LineProps, {}> { }
-        export class LinearGradient extends Component<LinearGradientProps, {}> {  }
+        export class LinearGradient extends Component<LinearGradientProps, {}> { }
         export class Path extends Component<PathProps, {}> { }
         export class Pattern extends Component<PatternProps, {}> { }
         export class Polygon extends Component<PolygonProps, {}> { }
@@ -1035,11 +1065,11 @@ declare module 'expo' {
         export class RadialGradient extends Component<RadialGradientProps, {}> { }
         export class Rect extends Component<RectProps, {}> { }
         export class Shape extends Component<{}, {}> { }
-        export class Stop extends Component<StopProps, {}> {  }
+        export class Stop extends Component<StopProps, {}> { }
         export class Symbol extends Component<SymbolProps, {}> { }
         export class Text extends Component<TextProps, {}> { }
         export class TextPath extends Component<TextPathProps, {}> { }
-        export class TSpan extends Component<TSpanProps, {}> {  }
+        export class TSpan extends Component<TSpanProps, {}> { }
         export class Use extends Component<UseProps, {}> { }
     }
 
@@ -1063,9 +1093,9 @@ declare module 'expo' {
         export function openBrowserAsync(url: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
         export function dismissBrowser(): Promise<{ type: 'dismissed' }>;
     }
-}
+  }
 
-declare module '@expo/vector-icons' {
+  declare module '@expo/vector-icons' {
     export interface IconProps {
         size?: number;
         name: string;
@@ -1082,4 +1112,4 @@ declare module '@expo/vector-icons' {
     export class Octicons extends React.Component<IconProps, void> { }
     export class Zocial extends React.Component<IconProps, void> { }
     export class SimpleLineIcons extends React.Component<IconProps, void> { }
-}
+  }
