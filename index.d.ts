@@ -828,12 +828,10 @@ declare module 'expo' {
     export class Svg extends Component<Svg.SvgProps, {}> { }
 
     export namespace Svg {
-        type NumberProp = number | string
-
         interface CircleProps extends SharedPathProps {
-            cx: NumberProp;
-            cy: NumberProp;
-            r: NumberProp;
+            cx: number | string;
+            cy: number | string;
+            r: number | string;
         }
 
         interface ClipPathProps {
@@ -850,49 +848,49 @@ declare module 'expo' {
         }
 
         interface EllipseProps extends SharedPathProps {
-            cx: NumberProp;
-            cy: NumberProp;
-            rx: NumberProp;
-            ry: NumberProp;
+            cx: number | string;
+            cy: number | string;
+            rx: number | string;
+            ry: number | string;
         }
 
         interface FillProps {
             fill?: string;
-            fillOpacity?: NumberProp;
+            fillOpacity?: number | string;
             fillRule?: 'evenodd' | 'nonzero';
         }
 
         interface FontProps {
             fontFamily?: string;
-            fontSize?: NumberProp;
-            fontWeight?: NumberProp;
+            fontSize?: number | string;
+            fontWeight?: number | string;
             fontStyle?: string;
             font?: object;
         }
 
         interface ImageProps extends ResponderProps, TouchableProps {
-            height: NumberProp;
+            height: number | string;
             href?: ImageURISource | Array<ImageURISource>;
             preserveAspectRatio?: string;
-            width: NumberProp;
-            x?: NumberProp;
-            y?: NumberProp;
+            width: number | string;
+            x?: number | string;
+            y?: number | string;
         }
 
         interface LinearGradientProps {
             gradientUnits?: 'objectBoundingBox' | 'userSpaceOnUse';
             id: string
-            x1: NumberProp;
-            x2: NumberProp;
-            y1: NumberProp;
-            y2: NumberProp;
+            x1: number | string;
+            x2: number | string;
+            y1: number | string;
+            y2: number | string;
         }
 
         interface LineProps extends SharedPathProps {
-            x1: NumberProp;
-            x2: NumberProp;
-            y1: NumberProp;
-            y2: NumberProp;
+            x1: number | string;
+            x2: number | string;
+            y1: number | string;
+            y2: number | string;
         }
 
         interface PathProps extends SharedPathProps {
@@ -903,10 +901,10 @@ declare module 'expo' {
             patternContentUnits?: 'userSpaceOnUse' | 'objectBoundingBox';
             patternTransform?: string;
             patternUnits?: 'userSpaceOnUse' | 'objectBoundingBox';
-            x1?: NumberProp;
-            x2?: NumberProp;
-            y1?: NumberProp;
-            y2?: NumberProp;
+            x1?: number | string;
+            x2?: number | string;
+            y1?: number | string;
+            y2?: number | string;
         }
 
         interface PolygonProps extends SharedPathProps {
@@ -918,24 +916,24 @@ declare module 'expo' {
         }
 
         interface RadialGradientProps {
-            cx: NumberProp;
-            cy: NumberProp;
-            fx: NumberProp;
-            fy: NumberProp;
+            cx: number | string;
+            cy: number | string;
+            fx: number | string;
+            fy: number | string;
             gradientUnits?: 'objectBoundingBox' | 'userSpaceOnUse';
             id: string;
-            r?: NumberProp;
-            rx?: NumberProp;
-            ry?: NumberProp;
+            r?: number | string;
+            rx?: number | string;
+            ry?: number | string;
         }
 
         interface RectProps extends SharedPathProps {
-            height: NumberProp;
-            rx?: NumberProp;
-            ry?: NumberProp;
-            width: NumberProp;
-            x: NumberProp;
-            y: NumberProp;
+            height: number | string;
+            rx?: number | string;
+            ry?: number | string;
+            width: number | string;
+            x: number | string;
+            y: number | string;
         }
 
         interface ResponderProps {
@@ -965,27 +963,28 @@ declare module 'expo' {
         }
 
         interface StopProps {
-            stopColor?: string,
-            stopOpacity?: NumberProp
+            offset: number | string;
+            stopColor: string;
+            stopOpacity?: number | string;
         }
 
         interface StrokeProps {
             stroke?: string;
             strokeDasharray?: Array<number> | string;
-            strokeDashoffset?: NumberProp;
+            strokeDashoffset?: number | string;
             strokeLinecap?: 'butt' | 'square' | 'round';
             strokeLinejoin?: 'miter' | 'bevel' | 'round';
-            strokeMiterlimit?: NumberProp;
-            strokeOpacity?: NumberProp;
-            strokeWidth?: NumberProp;
+            strokeMiterlimit?: number | string;
+            strokeOpacity?: number | string;
+            strokeWidth?: number | string;
         }
 
         interface SvgProps extends ViewProperties {
-            height?: NumberProp;
-            opacity?: NumberProp;
+            height?: number | string;
+            opacity?: number | string;
             preserveAspectRatio?: string;
             viewBox?: string;
-            width?: NumberProp;
+            width?: number | string;
         }
 
         interface SymbolProps {
@@ -995,14 +994,14 @@ declare module 'expo' {
         }
 
         interface TextProps extends FontProps, SharedPathProps {
-            dx?: NumberProp;
-            dy?: NumberProp;
+            dx?: number | string;
+            dy?: number | string;
             textAnchor?: 'start' | 'middle' | 'end';
         }
 
         interface TextPathProps extends FontProps, SharedPathProps {
             href: string;
-            startOffset?: NumberProp;
+            startOffset?: number | string;
         }
 
         interface TouchableProps {
@@ -1017,35 +1016,35 @@ declare module 'expo' {
         }
 
         interface TransformProps {
-            origin?: NumberProp;
-            originX?: NumberProp;
-            originY?: NumberProp;
-            rotate?: NumberProp;
-            rotation?: NumberProp;
-            scale?: NumberProp;
-            scaleX?: NumberProp;
-            scaleY?: NumberProp;
-            skew?: NumberProp;
-            skewX?: NumberProp;
-            skewY?: NumberProp;
+            origin?: number | string;
+            originX?: number | string;
+            originY?: number | string;
+            rotate?: number | string;
+            rotation?: number | string;
+            scale?: number | string;
+            scaleX?: number | string;
+            scaleY?: number | string;
+            skew?: number | string;
+            skewX?: number | string;
+            skewY?: number | string;
             transform?: object
-            translate?: NumberProp;
-            translateX?: NumberProp;
-            translateY?: NumberProp;
-            x?: NumberProp;
-            y?: NumberProp;
+            translate?: number | string;
+            translateX?: number | string;
+            translateY?: number | string;
+            x?: number | string;
+            y?: number | string;
         }
 
         interface TSpanProps extends FontProps, SharedPathProps {
-            dx?: NumberProp;
-            dy?: NumberProp;
+            dx?: number | string;
+            dy?: number | string;
             textAnchor?: 'start' | 'middle' | 'end';
         }
 
         interface UseProps extends SharedPathProps {
-            height?: NumberProp;
+            height?: number | string;
             href: string;
-            width?: NumberProp;
+            width?: number | string;
         }
 
         export class Circle extends Component<CircleProps, {}> { }
@@ -1091,9 +1090,9 @@ declare module 'expo' {
         export function openBrowserAsync(url: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
         export function dismissBrowser(): Promise<{ type: 'dismissed' }>;
     }
-  }
+}
 
-  declare module '@expo/vector-icons' {
+declare module '@expo/vector-icons' {
     export interface IconProps {
         size?: number;
         name: string;
@@ -1110,4 +1109,4 @@ declare module 'expo' {
     export class Octicons extends React.Component<IconProps, void> { }
     export class Zocial extends React.Component<IconProps, void> { }
     export class SimpleLineIcons extends React.Component<IconProps, void> { }
-  }
+}
