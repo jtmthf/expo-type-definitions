@@ -384,18 +384,6 @@ declare module 'expo' {
         }
 
         /**
-         * Expo LinearGradient
-         */
-        export interface LinearGradientProps {
-            colors: Array<string>;
-            start: [number, number];
-            end: [number, number];
-            locations: Array<number>;
-        }
-
-        export class LinearGradient extends React.Component<LinearGradientProps, void> { }
-
-        /**
          * Expo MapView
          */
         // TODO: MapView
@@ -635,6 +623,16 @@ declare module 'expo' {
         }
         export function launchCameraAsync(options?: CameraOptions): Promise<ImageResult>;
     }
+
+    interface LinearGradientProps extends ViewProperties {
+        colors?: Array<string>;
+        start?: [number, number];
+        end?: [number, number];
+        locations?: Array<number>;
+    }
+
+    /** Linear gradient. See https://github.com/react-native-community/react-native-linear-gradient. */
+    export class LinearGradient extends Component<LinearGradientProps, {}> { }
 
     export namespace Location {
         export interface LocationOptions {
